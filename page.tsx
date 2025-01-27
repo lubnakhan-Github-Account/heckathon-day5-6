@@ -8,25 +8,26 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+
 interface Iproduct{
   productName: string
   price : string
   description : string 
-  image: string
+  image:string
   quantity: number
 }
 
 export default function ShoppingCart() {
 
-  const router = useRouter()
+
+   const router = useRouter()
   const searchParam = useSearchParams();
-  const [cartItem, setCartItem] = useState<Iproduct[]>([]);
+   const [cartItem, setCartItem] = useState<Iproduct[]>([]);
 
 
-
-  useEffect(()=>{
-    const cart = localStorage.getItem("cart")
-    const updatedCart = cart ? JSON.parse(cart) : []
+   useEffect(()=>{
+     const cart = localStorage.getItem("cart")
+     const updatedCart = cart ? JSON.parse(cart) : []
     
     const productName = searchParam.get("productName");
     const price = searchParam.get("price");
@@ -62,6 +63,8 @@ export default function ShoppingCart() {
     setCartItem(copyWalaArray)
   }
 
+
+
   return (
     <div className="container mx-auto px-4 py-8 mt-[99px]">
       {/* Free Delivery Banner */}
@@ -81,18 +84,18 @@ export default function ShoppingCart() {
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <h1 className="text-2xl font-medium mb-6">Bag</h1>
+          <h1 className="text-2xl font-medium mb-6">Add Cart</h1>
 
           {/* Cart Items */}
           <div className="space-y-6">
-            {cartItem.map((item: Iproduct, index: number) => {
+            {cartItem.map((item:Iproduct, index: number) => {
               return (
                 <Card key={index}>
                   <CardContent className="p-6">
                     <div className="flex gap-6">
                       <div className="w-24 h-24 bg-gray-100 rounded-md">
                         <Image
-                          src={item.image}
+                          src={item.image}    
                           alt="Nike Dri-FIT"
                           width={96}
                           height={96}
@@ -152,10 +155,10 @@ export default function ShoppingCart() {
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-medium">You Might Also Like</h2>
               <div className="flex gap-2">
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" aria-label="Previous items" >
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" aria-label="Previous items" >
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
@@ -191,7 +194,7 @@ export default function ShoppingCart() {
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span className="text-sm">Subtotal</span>
-                  <span className="text-sm">₹ {cartItem.reduce((total, object)=>{return total + (+object.price * object.quantity)  }, 0)}</span>
+                   <span className="text-sm">₹ {cartItem.reduce((total, object)=>{return total + (+object.price * object.quantity)  }, 0)}</span> 
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm">Estimated Delivery & Handling</span>
@@ -200,7 +203,7 @@ export default function ShoppingCart() {
                 <Separator />
                 <div className="flex justify-between font-medium">
                   <span>Total</span>
-                  <span>₹ {cartItem.reduce((total, item)=> total + Number(item.price) * item.quantity, 0).toFixed(2).toLocaleString()}</span>
+                   <span>₹ {cartItem.reduce((total, item)=> total + Number(item.price) * item.quantity, 0).toFixed(2).toLocaleString()}</span> 
                 </div>
                 <Link href={"/checkout"}>
                   <Button className="w-full">Member Checkout</Button>
